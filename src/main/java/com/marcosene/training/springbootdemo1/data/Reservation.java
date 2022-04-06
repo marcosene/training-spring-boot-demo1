@@ -4,23 +4,23 @@ import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name="RESERVATION")
+@Table(name = "RESERVATION")
 public class Reservation {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    @Column(name="RESERVATION_ID")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "RESERVATION_ID")
     private long id;
 
     @ManyToOne
-    @JoinColumn(name="ROOM_ID")
+    @JoinColumn(name = "ROOM_ID")
     private Room room;
 
     @ManyToOne
     @JoinColumn(name = "GUEST_ID")
     private Guest guest;
 
-    @Column(name="RES_DATE")
+    @Column(name = "RES_DATE")
     private Date reservationDate;
 
     @Override

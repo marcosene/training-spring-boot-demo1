@@ -3,7 +3,7 @@ package com.marcosene.training.springbootdemo1.data;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Date;
+import java.util.Date;
 
 
 @Repository
