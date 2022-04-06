@@ -11,6 +11,15 @@ public class RoomReservation {
     private String lastName;
     private Date date;
 
+    public RoomReservation() {};
+
+    public RoomReservation(long roomId, String roomName, String roomNumber) {
+        this.roomId = roomId;
+        this.roomName = roomName;
+        this.roomNumber = roomNumber;
+        this.date = new Date();
+    }
+
     public long getRoomId() {
         return roomId;
     }

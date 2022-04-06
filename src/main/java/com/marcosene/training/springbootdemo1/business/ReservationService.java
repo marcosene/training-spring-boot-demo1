@@ -9,14 +9,20 @@ import java.util.*;
 public class ReservationService {
 
     private final ReservationRepository reservationRepository;
+    private final RoomRepository roomRepository;
 
-    public ReservationService(ReservationRepository reservationRepository) {
+    public ReservationService(ReservationRepository reservationRepository, RoomRepository roomRepository) {
         this.reservationRepository = reservationRepository;
+        this.roomRepository = roomRepository;
     }
 
     public List<RoomReservation> getRoomReservationsForDate(Date date) {
+        Map<Room, RoomReservation> roomReservationMap = new TreeMap<>(Comparator.comparing(Room::getRoomNumber));
+
+        Iterable<Room> rooms = this.roomRepository.findAll();
+        rooms.forEach(room -> roomReservationMap.put(room, new RoomReservation(room.getId(), room.getName(), room.getRoomNumber())));
+
         Iterable<Reservation> reservations = this.reservationRepository.findReservationByReservationDate(date);
-        List<RoomReservation> roomReservations = new ArrayList<>();
         reservations.forEach(reservation -> {
             RoomReservation roomReservation = new RoomReservation();
             roomReservation.setDate(date);
@@ -26,16 +32,9 @@ public class ReservationService {
             roomReservation.setFirstName(reservation.getGuest().getFirstName());
             roomReservation.setLastName(reservation.getGuest().getLastName());
             roomReservation.setGuestId(reservation.getGuest().getId());
-            roomReservations.add(roomReservation);
+            roomReservationMap.put(reservation.getRoom(), roomReservation);
         });
-
-        roomReservations.sort((o1, o2) -> {
-            if (o1.getRoomName().equals(o2.getRoomName())) {
-                return o1.getRoomNumber().compareTo(o2.getRoomNumber());
-            }
-            return o1.getRoomName().compareTo(o2.getRoomName());
-        });
-        return roomReservations;
+        return roomReservationMap.values().stream().toList();
     }
 }
 
