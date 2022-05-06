@@ -1,15 +1,16 @@
 package com.marcosene.training.springbootdemo1.data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "GUEST")
 public class Guest {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "GUEST_ID")
-    private long id;
+    private Long id;
 
     @Column(name = "FIRST_NAME")
     private String firstName;
@@ -32,11 +33,14 @@ public class Guest {
     @Column(name = "PHONE_NUMBER")
     private String phoneNumber;
 
-    public long getId() {
+    @OneToMany(mappedBy = "guest")
+    private List<Reservation> reservations;
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -94,6 +98,14 @@ public class Guest {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
     }
 
     @Override

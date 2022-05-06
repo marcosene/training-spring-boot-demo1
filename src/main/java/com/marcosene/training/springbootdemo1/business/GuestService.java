@@ -7,6 +7,7 @@ import org.thymeleaf.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GuestService {
@@ -29,5 +30,10 @@ public class GuestService {
             }
         });
         return guests;
+    }
+
+    public Guest getGuest(long guestId) {
+        Optional<Guest> optGuest = guestRepository.findById(guestId);
+        return optGuest.isEmpty() ? null : optGuest.get();
     }
 }

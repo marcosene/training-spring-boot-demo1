@@ -8,16 +8,16 @@ import java.sql.Date;
 public class Reservation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "RESERVATION_ID")
-    private long id;
+    private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "ROOM_ID")
+    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "ROOM_ID", referencedColumnName="ROOM_ID")
     private Room room;
 
-    @ManyToOne
-    @JoinColumn(name = "GUEST_ID")
+    @ManyToOne(optional = false, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "GUEST_ID", referencedColumnName="GUEST_ID")
     private Guest guest;
 
     @Column(name = "RES_DATE")
@@ -33,11 +33,11 @@ public class Reservation {
                 '}';
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

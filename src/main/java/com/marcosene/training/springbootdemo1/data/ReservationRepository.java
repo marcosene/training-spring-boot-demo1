@@ -10,4 +10,7 @@ import java.util.Date;
 public interface ReservationRepository extends CrudRepository<Reservation, Long> {
 
     Iterable<Reservation> findReservationByReservationDate(Date date);
+
+    @Override
+    <S extends Reservation> S save(S entity);
 }

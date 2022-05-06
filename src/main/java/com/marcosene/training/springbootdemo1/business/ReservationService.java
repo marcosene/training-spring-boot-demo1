@@ -36,5 +36,13 @@ public class ReservationService {
         });
         return roomReservationMap.values().stream().toList();
     }
+
+    public void addReservation(Room room, Guest guest, Date date) {
+        Reservation reservation = new Reservation();
+        reservation.setReservationDate(new java.sql.Date(date.getTime()));
+        reservation.setRoom(room);
+        reservation.setGuest(guest);
+        this.reservationRepository.save(reservation);
+    }
 }
 

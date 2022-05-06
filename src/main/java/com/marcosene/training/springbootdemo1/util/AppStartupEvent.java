@@ -1,7 +1,9 @@
 package com.marcosene.training.springbootdemo1.util;
 
+import com.marcosene.training.springbootdemo1.business.GuestService;
 import com.marcosene.training.springbootdemo1.business.ReservationService;
 import com.marcosene.training.springbootdemo1.business.RoomReservation;
+import com.marcosene.training.springbootdemo1.data.Guest;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
@@ -14,10 +16,13 @@ public class AppStartupEvent implements ApplicationListener<ApplicationReadyEven
 
     private final ReservationService reservationService;
 
+    private final GuestService guestService;
+
     private final DateUtils dateUtils;
 
-    public AppStartupEvent(ReservationService reservationService, DateUtils dateUtils) {
+    public AppStartupEvent(ReservationService reservationService, GuestService guestService, DateUtils dateUtils) {
         this.reservationService = reservationService;
+        this.guestService = guestService;
         this.dateUtils = dateUtils;
     }
 
@@ -26,5 +31,8 @@ public class AppStartupEvent implements ApplicationListener<ApplicationReadyEven
         Date date = this.dateUtils.createDateFromDateString("2022-01-01");
         List<RoomReservation> reservations = this.reservationService.getRoomReservationsForDate(date);
         reservations.forEach(System.out::println);
+
+        List<Guest> guests = this.guestService.getGuests();
+        guests.forEach(System.out::println);
     }
 }

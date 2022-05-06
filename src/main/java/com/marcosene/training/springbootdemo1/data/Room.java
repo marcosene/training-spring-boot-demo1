@@ -1,15 +1,16 @@
 package com.marcosene.training.springbootdemo1.data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "ROOM")
 public class Room {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ROOM_ID")
-    private long id;
+    private Long id;
 
     @Column(name = "NAME")
     private String name;
@@ -20,11 +21,14 @@ public class Room {
     @Column(name = "BED_INFO")
     private String bedInfo;
 
-    public long getId() {
+    @OneToMany(mappedBy = "room")
+    private List<Reservation> reservations;
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -50,6 +54,14 @@ public class Room {
 
     public void setBedInfo(String bedInfo) {
         this.bedInfo = bedInfo;
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
     }
 
     @Override
