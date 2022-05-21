@@ -1,9 +1,17 @@
 package com.marcosene.training.springbootdemo1.business;
 
-import com.marcosene.training.springbootdemo1.data.*;
+import com.marcosene.training.springbootdemo1.data.Guest;
+import com.marcosene.training.springbootdemo1.data.Reservation;
+import com.marcosene.training.springbootdemo1.data.ReservationRepository;
+import com.marcosene.training.springbootdemo1.data.Room;
+import com.marcosene.training.springbootdemo1.data.RoomRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 @Service
 public class ReservationService {
