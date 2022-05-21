@@ -7,6 +7,7 @@ import com.marcosene.training.springbootdemo1.data.Room;
 import com.marcosene.training.springbootdemo1.data.RoomRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -42,7 +43,7 @@ public class ReservationService {
             roomReservation.setGuestId(reservation.getGuest().getId());
             roomReservationMap.put(reservation.getRoom(), roomReservation);
         });
-        return roomReservationMap.values().stream().toList();
+        return new ArrayList<>(roomReservationMap.values());
     }
 
     public void addReservation(Room room, Guest guest, Date date) {
